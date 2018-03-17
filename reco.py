@@ -24,7 +24,7 @@ def sendMail(stamp):
     body = "Intru detecte"
     msg.attach(MIMEText(body, 'plain'))
     filename = stamp+".jpg"
-    attachment = open("/home/pi/Documents/personne/"+stamp+".jpg", "rb")
+    attachment = open("/home/pi/Documents/"+stamp+".jpg", "rb")
     part = MIMEBase('application', 'octet-stream')
     part.set_payload((attachment).read())
     encoders.encode_base64(part)
@@ -37,7 +37,7 @@ def sendMail(stamp):
     server.login(fromadr, "YOUR PASSWORD")
     text = msg.as_string()
     server.sendmail(fromadr, toadr, text)
-    os.remove('/home/pi/Documents/personne/'+stamp+'.jpg')
+    os.remove('/home/pi/Documents/'+stamp+'.jpg')
     server.quit()
 
 cascPath = 'xml/upper.xml'
@@ -65,7 +65,7 @@ while True:
             print(count)
             if(len(bodies)>0):
                 if(count > 50):
-                    cv2.imwrite('/home/pi/Documents/personne/'+stamp+'.jpg',crop_body)
+                    cv2.imwrite('/home/pi/Documents/'+stamp+'.jpg',crop_body)
                     logBook(stamp)
                     if(thread.is_alive() == False):
                         thread.start()
